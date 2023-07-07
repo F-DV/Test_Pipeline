@@ -1,0 +1,44 @@
+trigger:
+  branches:
+    include:
+      - main
+      # - release
+      # - develop
+    exclude:
+      - features/*
+      - feature/*
+  paths:
+    exclude:
+      - .azure-pipelines
+      - README.md
+      - azure-pipelines.yml
+
+pool:
+  name: 'Azure Pipelines'
+  vmImage: ubuntu-latest
+
+# resources:
+#   repositories:
+#     - repository: terraform_pipeline_ref
+#       type: github
+#       endpoint: 'NequiGithub'
+#       name: NequiTI/terraform_pipeline_ref
+#       ref: refs/heads/trunk
+
+# variables:
+#   - template: '.azure-pipelines/vars.yml'
+
+stages:
+#- template: reference_template.yml@terraform_pipeline_ref  # Template reference
+# parameters:
+#   capacity: 'coDelfosRiesgos'
+#   functionality: 'modelos-internos'
+  - stage: test
+    jobs:
+      - job: ExecutionTest
+        displayName: 'run test'
+        steps:
+        - script: echo "Ejecutando el trabajo de prueba"
+          displayName: Ejecucion de pipeline
+
+ 
