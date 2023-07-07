@@ -1,19 +1,42 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+trigger:
+  branches:
+    include:
+      - main
+      # - release
+      # - develop
+    exclude:
+      - features/*
+      - feature/*
+  paths:
+    exclude:
+      - .azure-pipelines
+      - README.md
+      - azure-pipelines.yml
 
-# trigger:
-# - main
+pool:
+  name: 'Azure Pipelines'
+  vmImage: ubuntu-latest
 
-# pool:
-#   vmImage: ubuntu-latest
+# resources:
+#   repositories:
+#     - repository: terraform_pipeline_ref
+#       type: github
+#       endpoint: 'NequiGithub'
+#       name: NequiTI/terraform_pipeline_ref
+#       ref: refs/heads/trunk
 
-# steps:
-# - script: echo Hello, world!
-#   displayName: 'Run a one-line script'
+# variables:
+#   - template: '.azure-pipelines/vars.yml'
 
-# - script: |
-#     echo Add other tasks to build, test, and deploy your project.
-#     echo See https://aka.ms/yaml
-#   displayName: 'Run a multi-line script'
+stages:
+#- template: reference_template.yml@terraform_pipeline_ref  # Template reference
+# parameters:
+#   capacity: 'coDelfosRiesgos'
+#   functionality: 'modelos-internos'
+  - stage: test
+    jobs:
+      - job: ExecutionTest
+        displayName: 'run test'
+        steps:
+        - script: echo "Ejecutando el trabajo de prueba"
+          displayName: Ejecucion de pipeline
